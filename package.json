@@ -28,6 +28,7 @@
     "next-mdx-remote": "^4.4.1",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
+    "pnpm": "^9.1.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0"
