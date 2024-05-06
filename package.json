@@ -18,10 +18,18 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
+    "@google-cloud/bigquery": "^7.7.0",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/mdx": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.3",
+    "chart.js": "^4.4.2",
     "next": "^13.0.6",
+    "next-mdx-remote": "^4.4.1",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
