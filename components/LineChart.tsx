@@ -38,7 +38,7 @@ const LineChart: React.FC = () => {
 
         // Create a single dataset with all the interest rates for the date
         const dataset = {
-          label: `Interest Rate on ${data.Date}`, // Label for the whole dataset
+          label: `Value on ${data.Date}`, // Label for the whole dataset
           data: labels.map(label => data[label]), // Array of data points
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
