@@ -4,7 +4,7 @@ import { BigQuery } from '@google-cloud/bigquery';
 
 // Function to create a BigQuery client
 export function createBigQueryClient() {
-    const credentialsPath = process.env.BIGQUERY_CREDENTIALS_PATH;
+    const credentialsPath = JSON.parse(process.env.BIGQUERY_CREDENTIALS || '{}');
     if (!credentialsPath) {
         throw new Error("The path to the BigQuery credentials is not set in the environment variables.");
     }
