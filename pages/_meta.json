@@ -1,7 +1,9 @@
 {
   "index": "Home",
-  "another": "About the Yield Curve",
-  "advanced": "How the Fed Influences Interest Rates",
+  "about-the-yield-curve": "About the Yield Curve",
+  "fed-influence": "How the Fed Influences Interest Rates",
+  "case-studies": "Case Studies",
+  "analysis": "Yield Curve Analysis",
   "about": {
     "title": "About",
     "type": "page"
