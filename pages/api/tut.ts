@@ -5,14 +5,18 @@ import { queryBigQuery } from '../../utils/queryBigQuery';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const sqlQuery = 
-    'SELECT \
-        Date, \
-        `2_Yr` / `10_Yr` AS TUT_SPREAD, \
-    FROM \
-        `yieldcurve-422317.yieldcurve.historical` \
-    ORDER BY \
-        Date DESC \
-    LIMIT 365';
+    'SELECT * \
+     FROM ( \
+            SELECT \
+                Date, \
+                `2_Yr` / `10_Yr` AS TUT_SPREAD, \
+            FROM \
+                `yieldcurve-422317.yieldcurve.historical` \
+            ORDER BY \
+                Date DESC\
+            LIMIT 365\
+    ) \
+    ORDER BY Date';
     try {
         const results = await queryBigQuery(sqlQuery);
         res.status(200).json(results);
