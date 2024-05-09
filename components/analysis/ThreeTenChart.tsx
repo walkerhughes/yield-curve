@@ -66,6 +66,7 @@ const ThreeTenChart: React.FC = () => {
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
           backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          pointStyle: 'cross'
         };
 
         // Update the state with the new chart data
