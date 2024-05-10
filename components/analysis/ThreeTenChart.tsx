@@ -39,7 +39,7 @@ const ThreeTenChart: React.FC = () => {
       y: {
         title: {
           display: true,
-          text: 'Difference %' // Updated y-axis to represent Contango Percentage
+          text: 'Difference' // Updated y-axis to represent Contango Percentage
         }
       }
     }
@@ -57,11 +57,11 @@ const ThreeTenChart: React.FC = () => {
 
         // Extract dates and contango values from rawData
         const dates = rawData.map((item: any) => item.Date);
-        const contangoValues = rawData.map((item: any) => item.CONTANGO_PCT_3m_10);
+        const contangoValues = rawData.map((item: any) => item.CONTANGO_DIFF_3m_10);
 
         // Create dataset for the chart
         const dataset = {
-          label: `Difference %`,
+          label: `EOD 3 Month-10 Year Difference`,
           data: contangoValues,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',

@@ -26,7 +26,7 @@ const TutSpread: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'TuT Spread (2 Year/10 Year) Over the Last 365 Days' // Updated title
+        text: '2 Year-10 Year Difference Over the Last 365 Days' // Updated title
       }
     },
     scales: {
@@ -39,7 +39,7 @@ const TutSpread: React.FC = () => {
       y: {
         title: {
           display: true,
-          text: '2 Year/10 Year' // Updated y-axis to represent Contango Percentage
+          text: 'Difference' // Updated y-axis to represent Contango Percentage
         }
       }
     }
@@ -61,7 +61,7 @@ const TutSpread: React.FC = () => {
 
         // Create dataset for the chart
         const dataset = {
-          label: "2 Year/10 Year",
+          label: "EOD 2 Year-10 Year Difference",
           data: contangoValues,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',

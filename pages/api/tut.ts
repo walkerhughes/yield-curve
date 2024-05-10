@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      FROM ( \
             SELECT \
                 Date, \
-                `2_Yr` / `10_Yr` AS TUT_SPREAD, \
+                `2_Yr` - `10_Yr` AS TUT_SPREAD, \
             FROM \
                 `yieldcurve-422317.yieldcurve.historical` \
             ORDER BY \

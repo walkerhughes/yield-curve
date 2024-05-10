@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      FROM ( \
             SELECT \
                 Date, \
-                `3_Mo` - `10_Yr` AS CONTANGO_PCT_3m_10, \
+                `3_Mo` - `10_Yr` AS CONTANGO_DIFF_3m_10, \
             FROM \
                 `yieldcurve-422317.yieldcurve.historical` \
             ORDER BY \
