@@ -30,17 +30,6 @@ const InversionTable: React.FC = () => {
     if (error) return <p>Error: {error}</p>;
     if (!data) return <p>No data available.</p>;
 
-    const tableStyle = {
-      width: '100%',
-      borderCollapse: 'collapse',  // Ensures borders between cells are merged
-    };
-
-    const cellStyle = {
-        border: '1px solid black',  // Adds a border around each cell
-        padding: '8px',  // Adds padding inside each cell for better readability
-        textAlign: 'center',  // Centers the text inside cells
-    };
-
     return (
       <table style={tableStyle}>
           <thead>
