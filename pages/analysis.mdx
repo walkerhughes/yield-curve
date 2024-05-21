@@ -1,10 +1,13 @@
 ## Yield Curve Analysis
 
-## Today's Yield Curve
-
 import LineChart from '../components/analysis/LineChart'
 import ThreeTenChart from '../components/analysis/ThreeTenChart'
 import TuTSpread from '../components/analysis/TuTSpread'
+import BigQueryData from '../components/Intelligence';
+
+<BigQueryData endpoint="/api/intelligence" />
+
+## Today's Yield Curve
 
 <LineChart />
 
