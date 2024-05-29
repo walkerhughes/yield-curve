@@ -13,6 +13,16 @@ const config: DocsThemeConfig = {
   footer: {
     text: '',
   },
+  head: ({ meta }) => (
+    <>
+      <title>Welcome to Yield Curve Central 👋</title>
+      {meta && meta.map((m) => (
+        <meta key={m.name} {...m} />
+      ))}
+    </>
+  ),
 }
 
 export default config
+
+
