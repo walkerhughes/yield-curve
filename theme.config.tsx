@@ -15,7 +15,7 @@ const config: DocsThemeConfig = {
   },
   head: ({ meta }) => (
     <>
-      <title>Welcome to Yield Curve Central 👋</title>
+      <title>Yield Curve Central 👋</title>
       {meta && meta.map((m) => (
         <meta key={m.name} {...m} />
       ))}
