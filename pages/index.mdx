@@ -4,17 +4,17 @@ Yield Curve Central is a one-stop solution for your analysis of US Treasury inte
 
 You'll find tools to aid your analysis of the yield curve as well as educational material to better understand how the Federal Reserve influences interest rates, and how interest rates affect the broader economy.
  
-## Today's Yield Curve
-
 import LineChart from '../components/LineChart'
-import InversionTable from '../components/InversionTable';
 import BigQueryData from '../components/Intelligence';
 import TableMarkdownComponent from '../components/TableMarkdownComponent';
+import CombinedComponent from '../components/CombinedComponent';
 
 
-<LineChart />
+## Today's Yield Curve
 
-<TableMarkdownComponent />
+<CombinedComponent />
+
+## Market Analysis 
 
 <BigQueryData endpoint="/api/intelligence" />
 

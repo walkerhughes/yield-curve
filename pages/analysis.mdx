@@ -1,15 +1,17 @@
 ## Yield Curve Analysis
 
-import LineChart from '../components/analysis/LineChart'
+import CombinedComponent from '../components/analysis/CombinedComponent'
+import BigQueryData from '../components/Intelligence';
 import ThreeTenChart from '../components/analysis/ThreeTenChart'
 import TuTSpread from '../components/analysis/TuTSpread'
-import BigQueryData from '../components/Intelligence';
-
-<BigQueryData endpoint="/api/intelligence" />
 
 ## Today's Yield Curve
 
-<LineChart />
+<CombinedComponent />
+
+## Market Analysis
+
+<BigQueryData endpoint="/api/intelligence" />
 
 ## Yield Curve Spreads
 
