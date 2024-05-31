@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         LIMIT 1 \
       ) \
       SELECT  \
-        CAST(CAST(Date AS DATE) + 1 AS STRING) AS today, \
+        CAST(CAST(Date AS DATE) AS STRING) AS today, \
         CAST(id.last_inversion_date + 1 AS STRING) AS last_inversion_date, \
         DATE_DIFF(CURRENT_DATE(), id.last_inversion_date, DAY) + 1 AS num_days_since_last_inversion, \
         ROUND(cd.`3_Mo` - cd.`10_Yr`, 2) AS diff_3m_10y, \
