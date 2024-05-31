@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 
 
 const TableMarkdownComponent: React.FC = () => {
-  const [data, setData] = useState<{ today: string; last_inversion_date: string; num_days_since_last_inversion: number; contango_3m_10y: number; diff_3m_10y: number; contango_2y_10y: number; diff_2y_10y: number } | null>(null);
+  const [data, setData] = useState<{ today: string; last_inversion_date: string; num_days_since_last_inversion: number; diff_3m_10y: number; diff_2y_10y: number } | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

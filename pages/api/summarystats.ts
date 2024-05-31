@@ -13,29 +13,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ), \
       contango_data AS ( \
         SELECT  \
-          * \
+          Date, `3_Mo`, `10_Yr`, `2_Yr` \
         FROM  \
           `yieldcurve-422317.yieldcurve.historical` \
         ORDER BY  \
           Date DESC  \
         LIMIT 1 \
-      ), \
-      today AS( \
-        SELECT  \
-          MAX(CAST(Date AS DATE)) as date \
-        FROM  \
-          `yieldcurve-422317.yieldcurve.historical`  \
-        LIMIT 1 \
       ) \
       SELECT  \
-        (SELECT CAST(date AS string) FROM today) AS today, \
-        (SELECT CAST(1 + last_inversion_date AS string) FROM inversion_date) AS last_inversion_date, \
-        (SELECT 1 + DATE_DIFF((SELECT date from today), last_inversion_date, DAY) FROM inversion_date) AS num_days_since_last_inversion,  \
-        (SELECT ROUND((`3_Mo` - `10_Yr`) / `3_Mo`, 2) FROM contango_data) AS contango_3m_10y,  \
-        (SELECT ROUND(`3_Mo` - `10_Yr`, 2) FROM contango_data) AS diff_3m_10y,  \
-        (SELECT ROUND((`2_Yr` - `10_Yr`) / `2_Yr`, 2) FROM contango_data) AS contango_2y_10y, \
-        (SELECT ROUND(`2_Yr___10_Yr`, 2) FROM contango_data) AS diff_2y_10y,  \
-      ;';
+        CAST(CAST(Date AS DATE) + 1 AS STRING) AS today, \
+        CAST(id.last_inversion_date + 1 AS STRING) AS last_inversion_date, \
+        DATE_DIFF(CURRENT_DATE(), id.last_inversion_date, DAY) + 1 AS num_days_since_last_inversion, \
+        ROUND(cd.`3_Mo` - cd.`10_Yr`, 2) AS diff_3m_10y, \
+        ROUND(cd.`2_Yr` - cd.`10_Yr`, 2) AS diff_2y_10y \
+      FROM  \
+        inversion_date id, contango_data cd';
 
     try {
         const results = await queryBigQuery(sqlQuery);
