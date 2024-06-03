@@ -17,7 +17,6 @@ const config: DocsThemeConfig = {
     <>
       <title>Yield Curve Central 👋</title>
       <meta name="description" content="Welcome to Yield Curve Central 👋" />
-      {/* Add other meta tags here if needed */}
     </>
   ),
 }
