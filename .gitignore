@@ -7,4 +7,7 @@ yieldcurve-422317-510529e47525.json
 temp.ipynb
 IN_PROGRESS
 **/DEPRECATED
-.github 
+**/__pycache__
+**/.DS_Store
+**/credentials.json
+credentials.json 
