@@ -3,7 +3,7 @@ name: Daily Script Execution
 on:
   schedule:
     # Runs every day at 10:05pm UTC  
-    - cron: '*/5 * * * *'
+    - cron: '5 22 * * *'
 
 jobs:
   run-scrapy-script:
