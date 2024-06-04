@@ -4,12 +4,15 @@ Yield Curve Central is a one-stop solution for your analysis of the US Treasury 
 
 import LineChart from '../components/LineChart'
 import BigQueryData from '../components/Intelligence';
+import BigQueryDataTLDR from '../components/TLDR';
 import ThreeTenChart from '../components/analysis/ThreeTenChart'
 import TuTSpread from '../components/analysis/TuTSpread'
 
 ## Today's Yield Curve
 
 <LineChart />
+
+<BigQueryDataTLDR endpoint="/api/tldr" />
 
 ## Market Analysis 
 
@@ -20,4 +23,5 @@ import TuTSpread from '../components/analysis/TuTSpread'
 <ThreeTenChart />
 
 <TuTSpread />
+
 
