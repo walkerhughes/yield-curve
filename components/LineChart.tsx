@@ -1,7 +1,7 @@
-// components/LineChart.tsx
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartData, Point } from 'chart.js';
+import jsonData from '../data/daily_data.json';
 
 // Register the necessary components for Line chart
 ChartJS.register(
@@ -47,44 +47,25 @@ const LineChart: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/data');
-        const rawData = await response.json();
-
-        if (rawData.length === 0) {
-          return;
-        }
-
-        const data = rawData[0];
-
-        const excludeKeys = new Set(['Date', '2_Yr___10_Yr', '2_Yr___30_Yr', '10_Yr___30_Yr']);
-        const labels = Object.keys(data).filter(key => !excludeKeys.has(key));
-
-        const dataset = {
-          label: `EOD Value on ${data.Date}`,
-          data: labels.map(label => data[label]),
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-        };
-
-        setChartData({
-          labels: labels.map(label => label.replace('_', ' ').replace('Mo', ' Month').replace('Yr', ' Year')),
-          datasets: [dataset]
-        });
-
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
+    const data = jsonData;
+    const excludeKeys = new Set(['Date']);
+    const labels = Object.keys(data).filter(key => !excludeKeys.has(key));
+    const dataset = {
+      label: `EOD Value on ${data.Date}`,
+      data: labels.map(label => data[label]),
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      backgroundColor: 'rgba(75, 192, 192, 0.5)',
     };
 
-    fetchData();
+    // Parse the JSON data directly
+    setChartData({
+        labels: labels.map(label => label.replace('_', ' ').replace('Mo', ' Month').replace('Yr', ' Year')),
+        datasets: [dataset]
+      });
   }, []);
 
   return <Line data={chartData} options={options} />;
 };
 
 export default LineChart;
-
-

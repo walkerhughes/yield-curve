@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import jsonData from '../data/daily_tldr.json';
+import jsonData from '../data/daily_description.json';
 
 
-const TLDR: React.FC = () => {
+const DailyDescription: React.FC = () => {
 
     const [tldr, setData] = useState<string | null>(null);
 
     useEffect(() => {
         const data = jsonData;
-        const tldr = jsonData.TLDR.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        const tldr = jsonData.Description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         setData(tldr); 
     }, []);
 
@@ -17,4 +17,4 @@ const TLDR: React.FC = () => {
     );
 };
 
-export default TLDR;  
+export default DailyDescription;   
