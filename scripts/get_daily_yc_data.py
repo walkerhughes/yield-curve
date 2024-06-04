@@ -3,7 +3,6 @@ import json
 import pandas as pd 
 from google.cloud import bigquery
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath("yieldcurve-422317-510529e47525.json")
 
 def query_bigquery_and_save_to_json(table, destination_file):
 
@@ -42,7 +41,7 @@ def query_bigquery_and_save_to_json(table, destination_file):
 
 
 if __name__ == "__main__":
-    
+
     # fetch data from BigQuery and save the results to local json files
     query_bigquery_and_save_to_json(table = "yieldcurve.historical", destination_file = "./data/daily_data.json")
     query_bigquery_and_save_to_json(table = "yieldcurve.tldr", destination_file = "./data/daily_tldr.json")
