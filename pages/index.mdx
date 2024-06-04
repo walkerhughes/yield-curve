@@ -3,8 +3,10 @@
 Yield Curve Central is a one-stop solution for your analysis of the US Treasury yield curve. We're your open-source documentation for understanding how the Fed affects interest rates and how interest rates affect the economy.
 
 import LineChart from '../components/LineChart'
-import BigQueryData from '../components/Intelligence';
-import BigQueryDataTLDR from '../components/TLDR';
+
+import TLDR from '../components/TLDR'
+import DailyDescription from '../components/DailyDescription'
+import Citations from '../components/Citations'
 import ThreeTenChart from '../components/analysis/ThreeTenChart'
 import TuTSpread from '../components/analysis/TuTSpread'
 
@@ -12,11 +14,13 @@ import TuTSpread from '../components/analysis/TuTSpread'
 
 <LineChart />
 
-<BigQueryDataTLDR endpoint="/api/tldr" />
+<TLDR />
 
 ## Market Analysis 
 
-<BigQueryData endpoint="/api/intelligence" />
+<DailyDescription />
+
+<Citations />
 
 ## Yield Curve Spreads 
 
