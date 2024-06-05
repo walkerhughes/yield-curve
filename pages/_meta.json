@@ -1,5 +1,6 @@
 {
   "index": "Home",
+  "yield-curve-documentation": "How to Use the Yield Curve",
   "about": {
     "title": "About",
     "type": "page"
