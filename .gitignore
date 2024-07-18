@@ -11,3 +11,4 @@ IN_PROGRESS
 **/.DS_Store
 **/credentials.json
 credentials.json 
+**/_app.js
