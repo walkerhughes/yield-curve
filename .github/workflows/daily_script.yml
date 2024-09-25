@@ -2,7 +2,7 @@ name: Daily Script Execution
 
 on:
   schedule:
-    # Runs every day at 10:05pm UTC  
+    # Runs every day at 10:00pm UTC  
     - cron: '0 22 * * *'
 
 jobs:
