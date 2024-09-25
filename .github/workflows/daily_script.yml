@@ -3,7 +3,7 @@ name: Daily Script Execution
 on:
   schedule:
     # Runs every day at 10:05pm UTC  
-    - cron: '5 22 * * *'
+    - cron: '0 22 * * *'
 
 jobs:
   run-scrapy-script:
@@ -27,15 +27,39 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: data
-        path: ./data/
+        path: ./data/scraped
 
-    - name: Run get_daily_yc_data.py script
+    - name: Run get_yc_data.py script
       env:
         BIGQUERY_CREDENTIALS: ${{ secrets.BIGQUERY_CREDENTIALS }}
       run: |
         echo "${BIGQUERY_CREDENTIALS}" > credentials.json
         export GOOGLE_APPLICATION_CREDENTIALS=credentials.json
-        python3 ./scripts/get_daily_yc_data.py
+        python3 ./scripts/get_yc_data.py
+
+    - name: Run get_yc_description.py script
+      env:
+        BIGQUERY_CREDENTIALS: ${{ secrets.BIGQUERY_CREDENTIALS }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+      run: |
+        echo "${BIGQUERY_CREDENTIALS}" > credentials.json
+        export GOOGLE_APPLICATION_CREDENTIALS=credentials.json
+        python3 ./scripts/get_yc_description.py --api_key $ALPHAVANTAGE_API_KEY
+
+    - name: Upload Data Directory
+      uses: actions/upload-artifact@v3
+      with:
+        name: data
+        path: ./data/
+
+    - name: Run get_local_data.py script
+      env:
+        BIGQUERY_CREDENTIALS: ${{ secrets.BIGQUERY_CREDENTIALS }}
+      run: |
+        echo "${BIGQUERY_CREDENTIALS}" > credentials.json
+        export GOOGLE_APPLICATION_CREDENTIALS=credentials.json
+        python3 ./scripts/get_local_data.py
 
     - name: Commit and push if there are changes
       run: |
