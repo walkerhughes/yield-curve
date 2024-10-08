@@ -1,10 +1,19 @@
 import argparse
-
+import os
+from  dotenv import load_dotenv
 import pandas as pd 
 from datetime import datetime
 
+from gpt_researcher import GPTResearcher
+import re
+
+import yc_central
+from yc_central.historical import HistoricalFredDataAPI
+
 import utils.get_daily_discription as get_daily_discription
 import utils.get_news_articles as get_news_articles 
+
+# assert load_dotenv()
 
 CURRENT_DATE = get_daily_discription.clean_date(datetime.today())
 DATA_CLEANED_DIR = "./data/cleaned/yield_curve_historical_rates_MASTER.parquet"
@@ -40,8 +49,48 @@ if __name__ == "__main__":
             article_summaries = article_summaries
         )
 
-        temp_insights = get_daily_discription.generate_insight(prompt)
-        insights = f"\n{temp_insights}\n\n"
+        # temp_insights = get_daily_discription.generate_insight(prompt)
+        # insights = f"\n{temp_insights}\n\n"
+        api = HistoricalFredDataAPI(fred_api_key=os.environ["FRED_API_KEY"])
+        historical_data = api.get_all_yield_series()
+
+        import yc_central.analysis
+
+        inversion_2_10 = yc_central.analysis.calculate_yield_inversion(df=historical_data, short_term="DGS2", long_term="DGS10")
+        inversion_3mo_10 = yc_central.analysis.calculate_yield_inversion(df=historical_data, short_term="DGS3MO", long_term="DGS10")
+
+        is_inverted_2_10 = inversion_2_10.iloc[-1]["DGS10-DGS2_Inversion"]
+        is_inverted_3mo_10 = inversion_3mo_10.iloc[-1]["DGS10-DGS3MO_Inversion"]
+
+        inversion_status_2_10 = f"Is the 2Y, 10Y spread currently inverted: {True if is_inverted_2_10 else False}."
+        inversion_status_3mo_10 = f"Is the 3 month, 10Y spread currently inverted: {True if is_inverted_3mo_10 else False}."
+
+        inversion_status_str = inversion_status_2_10 + " " + inversion_status_3mo_10
+
+        query = f"""
+
+            You are an expert on the US Treasury Yield Curve that contributes daily articles to an online publication. The user will provide you with your last 5 descriptions about the yield curve and current state of monetary policy. 
+
+            Market's are closed today, so instead of generating a unique insight, you will summarize your analyses from the past 5 days and list in bullet points the biggest unanswered questions for the week ahead regarding markets and monetary policy.
+                            
+            Your main goals as a commentator are to:
+                1.	Inform the reader about current market conditions in the context of user-provided summary data on the economy.
+                2.	Interpret what these developments may mean for future Federal Reserve monetary policy.
+                            
+            Your commentary should be optimized for SEO for a macroeconomic publication. Ensure your analysis is intelligent, non-speculative, and free of financial advice. It should be easily understood by an 8th grader but compelling for a professional investor. Use the active voice. 
+            Do not include section headers or separators. Output should be in paragraph form.
+
+            Keep in mind the following regarding the yield curve inversion status: {inversion_status_str}
+
+        """
+        researcher = GPTResearcher(query=query, report_type="research_report")
+        researcher.set_verbose(False)
+
+        research_result = await researcher.conduct_research()
+        report = await researcher.write_report()
+        report = re.sub("#", "", report)
+        report = re.sub("```markdown", "", report)
+        temp_insights = re.sub("```", "", report)
 
         temp_tldr = get_daily_discription.generate_tldr(temp_insights)
         tldr = f"\n**TL;DR**\n\n{temp_tldr}\n"
