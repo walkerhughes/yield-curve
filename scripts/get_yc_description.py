@@ -8,6 +8,7 @@ from gpt_researcher import GPTResearcher
 import re
 
 import yc_central
+import yc_central.analysis
 from yc_central.historical import HistoricalFredDataAPI
 
 import utils.get_daily_discription as get_daily_discription
@@ -19,15 +20,15 @@ CURRENT_DATE = get_daily_discription.clean_date(datetime.today())
 DATA_CLEANED_DIR = "./data/cleaned/yield_curve_historical_rates_MASTER.parquet"
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description = "Get API key for processing news articles.")
     parser.add_argument('--api_key', type=str, required=True, help='API key to access the service')
     args = parser.parse_args()
     api_key = args.api_key
 
-    # generate insights only if its a trading day 
-    if get_daily_discription.is_trading_day(): 
+    # generate insights only if its a trading day
+    if get_daily_discription.is_trading_day():
 
         # get intermediate data to pass into prompt 
         yc_data = pd.read_parquet(DATA_CLEANED_DIR)
@@ -36,7 +37,7 @@ if __name__ == "__main__":
 
         # fetch today's relevant news articles and their citations 
         data = get_news_articles.get_alphavantage_articles(api_key)
-        top_k_articles = get_news_articles.get_top_k_relevant_articles(data, 3) 
+        top_k_articles = get_news_articles.get_top_k_relevant_articles(data, 3)
         article_summaries = get_news_articles.get_top_k_summaries(top_k_articles)
         citations = get_news_articles.get_top_k_citations(top_k_articles)
 
@@ -54,7 +55,6 @@ if __name__ == "__main__":
         api = HistoricalFredDataAPI(fred_api_key=os.environ["FRED_API_KEY"])
         historical_data = api.get_all_yield_series()
 
-        import yc_central.analysis
 
         inversion_2_10 = yc_central.analysis.calculate_yield_inversion(df=historical_data, short_term="DGS2", long_term="DGS10")
         inversion_3mo_10 = yc_central.analysis.calculate_yield_inversion(df=historical_data, short_term="DGS3MO", long_term="DGS10")
@@ -86,8 +86,8 @@ if __name__ == "__main__":
         researcher = GPTResearcher(query=query, report_type="research_report")
         researcher.set_verbose(False)
 
-        research_result = await researcher.conduct_research()
-        report = await researcher.write_report()
+        research_result = researcher.conduct_research()
+        report = researcher.write_report()
         report = re.sub("#", "", report)
         report = re.sub("```markdown", "", report)
         temp_insights = re.sub("```", "", report)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         
     else: 
         desc = get_daily_discription.format_prev_descriptions() 
-        insights = f"\nThe following is a summary of the past week's Yield Curve movements."
+        insights = "\nThe following is a summary of the past week's Yield Curve movements."
         insights += "\n\n" + get_daily_discription.generate_reflection(desc)
         tldr = "\nMarkets are closed today. Values displayed are from last trading day."
         citations = ""
