@@ -12,7 +12,7 @@ import yc_central.analysis
 from yc_central.historical import HistoricalFredDataAPI
 
 import utils.get_daily_discription as get_daily_discription
-import utils.get_news_articles as get_news_articles 
+import utils.get_news_articles as get_news_articles
 
 # assert load_dotenv()
 
@@ -41,11 +41,11 @@ if __name__ == "__main__":
         article_summaries = get_news_articles.get_top_k_summaries(top_k_articles)
         citations = get_news_articles.get_top_k_citations(top_k_articles)
 
-        # create prompt for generating daily insights 
+        # create prompt for generating daily insights
         prompt = get_daily_discription.get_prompt(
             date = CURRENT_DATE, 
             summary_data = summary_str, 
-            historical_yc = yc_data.iloc[: 31].to_string(index = False), 
+            historical_yc = yc_data.iloc[: 31].to_string(index = False),
             historical_spy = spy_data.to_string(index = False),
             article_summaries = article_summaries
         )
@@ -94,8 +94,8 @@ if __name__ == "__main__":
 
         temp_tldr = get_daily_discription.generate_tldr(temp_insights)
         tldr = f"\n**TL;DR**\n\n{temp_tldr}\n"
-        
-    else: 
+
+    else:
         desc = get_daily_discription.format_prev_descriptions() 
         insights = "\nThe following is a summary of the past week's Yield Curve movements."
         insights += "\n\n" + get_daily_discription.generate_reflection(desc)
@@ -104,21 +104,21 @@ if __name__ == "__main__":
 
     get_daily_discription.push_to_big_query(
         {
-            "Date": CURRENT_DATE, 
+            "Date": CURRENT_DATE,
             "Description": insights
         },
         table_id = 'daily_description'
     ) 
     get_daily_discription.push_to_big_query(
         {
-            "Date": CURRENT_DATE, 
+            "Date": CURRENT_DATE,
             "TLDR": tldr
         },
         table_id = 'tldr'
     )
     get_daily_discription.push_to_big_query(
         {
-            "Date": CURRENT_DATE, 
+            "Date": CURRENT_DATE,
             "Citations": citations
         },
         table_id = 'citations'
