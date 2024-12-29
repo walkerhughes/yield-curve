@@ -15,5 +15,6 @@ This project brings digestible, daily macroeconomic analyses of the most current
 
 **Interactive and Educational**: Learning resources on how to use the Yield Curve also available @ [YieldCurveCentral.com](https://www.yieldcurvecentral.com/).
 
-[Video Description](https://www.loom.com/share/dedc5b824e004a3aa54af0e1239adfde?sid=1331a8d2-1d5f-4d36-8b0d-87b2fa52fdd7
+[![Video Description](https://www.loom.com/share/dedc5b824e004a3aa54af0e1239adfde?sid=1331a8d2-1d5f-4d36-8b0d-87b2fa52fdd7
+)](https://www.loom.com/share/dedc5b824e004a3aa54af0e1239adfde?sid=1331a8d2-1d5f-4d36-8b0d-87b2fa52fdd7
 )
